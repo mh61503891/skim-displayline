@@ -1,0 +1,13 @@
+{
+  "name": "skim-displayline",
+  "main": "./lib/skim-displayline",
+  "version": "0.0.1",
+  "description": "Runs displayline",
+  "repository": "https://github.com/mh61503891/skim-displayline",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}
