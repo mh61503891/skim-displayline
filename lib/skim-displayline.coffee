@@ -8,12 +8,14 @@ module.exports =
   deactivate: ->
     @subscriptions.dispose()
   displayline: ->
-    editor = atom.workspace.getActiveEditor()
+    editor = atom.workspace.getActiveTextEditor()
     return unless editor.getBuffer().getBaseName().split('.').pop() == 'tex'
     app = 'displayline'
-    line = editor.getCursor().getBufferRow() + 1
+    line = editor.getCursorBufferPosition().row + 1
     texsourcefile = editor.getPath()
+    texsourcefile = texsourcefile.replace(/\s/g, "\\ ")#Escape spaces in path
     pdffile = texsourcefile.replace('.tex', '.pdf')
+
     command = "#{app} -g #{line} #{pdffile} #{texsourcefile}"
     console.log(command)
     child_process.exec(command, {}, (error, stdout, stderr) ->
