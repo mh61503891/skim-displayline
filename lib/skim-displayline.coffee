@@ -14,7 +14,12 @@ module.exports =
     line = editor.getCursorBufferPosition().row + 1
     texsourcefile = editor.getPath()
     texsourcefile = texsourcefile.replace(/\s/g, "\\ ")#Escape spaces in path
-    pdffile = texsourcefile.replace('.tex', '.pdf')
+    rootspec = (/^% ?!TEX root ?= ?(.*)$/gm).exec(editor.getBuffer().getText())
+    if rootspec
+      roottex = texsourcefile.replace(/[^\/]*$/, rootspec[1].trim())
+    else
+      roottex = texsourcefile
+    pdffile = roottex.replace('.tex', '.pdf')
 
     command = "#{app} -g #{line} #{pdffile} #{texsourcefile}"
     console.log(command)
